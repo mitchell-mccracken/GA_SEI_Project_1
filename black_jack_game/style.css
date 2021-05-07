@@ -23,17 +23,25 @@ h4{
     /* display:inline-block; */
 }
 .card{
-    display: inline-block;
-    background-color: crimson;
+    /* display: inline-block; */
+    display: inline-flex;
+    flex-direction: row;
+    background-color:crimson;
     border-radius: 1vh;
     height: 10vh;
     width: calc(10vh * 0.71);       /*ratio of card size */
     /* border: 1px solid blueviolet; */
 }
+.card-text{
+    margin: auto;
+    align-items: stretch;
+}
+
 #middle-container{
     display:flex;
     justify-content: space-between;
 }
+
 .left-side{
     border: 1px solid green;
     display: flex;
@@ -45,4 +53,15 @@ h4{
 .left-side button {
     height: 30%;
     width:50%;
+    border-radius: 15px;
+    margin: 5px 0 5px 10px;
+}
+
+.right-side{
+    border: 1px solid green;
+    display: flex;
+    width: 50%;
+    flex-direction: column;
+    justify-content: space-evenly;
+    /* flex-direction: column; */
 }
