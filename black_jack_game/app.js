@@ -4,6 +4,7 @@ console.log('js file connected')
 
 // ====================  variables to create deck of cards array
 const deckOfCards = [];
+const usedDeckOfCards = [];
 const cardNumberArray = [ 2, 3, 4, 5, 6, 7, 8, 9, 10, 'jack', 'queen', 'king', 'ace'];
 const cardSuitArray = [ 'hearts' , 'diamonds' , 'spades' , 'clubs'];
 let dealerHand = [];
@@ -68,8 +69,11 @@ const randNum = () => {
 
 // ================= generate card
 const generateCardValue = (forWho) => {
-    card = deckOfCards[randNum()];
+    let index = randNum();
+    card = deckOfCards[index];
     forWho.push(card);
+    usedDeckOfCards.push(card);
+    deckOfCards.splice(index , 1);
 }
 
 // ================ calculate dealer score
@@ -107,7 +111,8 @@ const checkScore = () => {
     calcDealerScore();
     console.log(' ------------------');
     calcPlayerScore();
-    // check if dealer or player is > 21
+    // check if dealer or player is > 21 and has an ace
+    checkIfAceInHand();
     checkForAWin();
 
     if (playerDecisionMade === 'not made'){
@@ -130,14 +135,8 @@ const playerDecision = () => {
     }
     else if (decision === 'stay') {
         playerDecisionMade = 'made';
-        checkScore()
-        // dealerDecisionModel();          //I dont think this is needed
-
+        checkScore();
     } 
-    // else {
-    //     alert('please enter a valid decision');
-    //     playerDecision();
-    // }
 }
 
 // =========== the decision model for dealer getting dealer more cards 
@@ -148,7 +147,7 @@ const dealerDecisionModel = () => {
             generateCardValue(dealerHand);
             checkScore();
         } else if (dealerPoints > playerPoints && dealerPoints > 21) {
-            alert('*** dealer loses!');
+            alert('*** dealer loses!');                                     //might need to check for an ace here
             return
         } else if (dealerPoints > playerPoints && dealerPoints <= 21){
             alert('***** dealer wins!');
@@ -170,13 +169,41 @@ const checkForAWin = () => {
 
 }
 
+// ============== check if user has ace in hand
+const checkIfAceInHand = () => {
+    if (playerPoints > 21) {
+        // check if player has an ace, if so change value from 11 to 1
+        for (i=0 ; i<playerHand.length ; i++) {
+            let card = playerHand[i];
+            if (card.faceValue === 'ace' && card.pointValue === 11) {
+                console.log('ace found, changing from 11 to 1 point *******');
+                card.pointValue = 1;
+                calcPlayerScore();
+            }
+        }
+    }
+    if (dealerPoints > 21) {
+        // check if dealer has an ace, if so change value from 11 to 1
+        for (i=0 ; i<dealerHand.length ; i++) {
+            let card = dealerHand[i];
+            if (card.faceValue === 'ace' && card.pointValue === 11) {
+                console.log('ace found, changing from 11 to 1 point *******');
+                card.pointValue = 1;
+                calcDealerScore();
+            }
+        }
+    }
+}
+
 
 // ============ function to start game
 const startGame = () => {
     generateCardValue(dealerHand);
+    // dealerHand[0] = deckOfCards[(deckOfCards.length -1)];
     generateCardValue(dealerHand);
     generateCardValue(playerHand);
     generateCardValue(playerHand);
+    playerHand[1] = deckOfCards[(deckOfCards.length -1)];
     checkScore();           //might want to hard code the dealer score check of the single card then roll into score check of player followed by player choice. player choice wll be essentially a loop until they choose stay or 5 cards are delt. After stay or 5 player cardss then it will go into the dealer loop checking the following : is dealer score? > 21 -no-> is dealer score > player score? -no-> deal card for dealer, start at the beginning of checks
     
 }
