@@ -82,7 +82,6 @@ const nextRound = () => {
 // ================ random number generator based on length of deckOfCards array
 const randNum = () => {
     let randomNumber =  Math.floor( Math.random() * deckOfCards.length );
-    // console.log(randomNumber);
     return randomNumber;
 }
 
@@ -138,26 +137,11 @@ const checkScore = () => {
     if (playerBust || dealerBust) {
         return
     }
-
-    //checkForAWin();             //only checks if player decision is set to 'made', ***I might not want this here bc it is called on under the dealerDecisionModel
-
-    // if (playerBust) {
-    //     console.log('player bust');
-    //     return
-    // } 
-    // else if (dealerBust) {
-    //     console.log('dealer bust');
-    //     return
-    // }
-
     if (playerDecisionMade === 'not made'){
         setTimeout(playerDecision , 1000);
-    } 
-    else if (playerDecisionMade === 'made') {       // I should never get to this loop if user busts
+    } else if (playerDecisionMade === 'made') {       // I should never get to this loop if user busts
         dealerDecisionModel();
     }
-    
-    ///should probably include playerDecision in this function then allow it to loop back to this function if player hits, also may need to add a check to see if anyone has lost yet
 }
 
 // ============== player decision
@@ -191,15 +175,7 @@ const dealerDecisionModel = () => {
         else if (dealerPoints > playerPoints) {
             console.log('dealer wins, score greater than player score');
             checkForAWin();
-            // checkScore();
         }
-        // else if (dealerPoints > playerPoints && dealerPoints > 21) {      ///****** I think this needs removed *************/
-        //     alert('*** dealer loses!');                                     //might need to check for an ace here
-        //     return
-        // } else if (dealerPoints > playerPoints && dealerPoints <= 21){
-        //     alert('***** dealer wins!');
-        //     return
-        // }
     }
 }
 
@@ -299,10 +275,6 @@ const startGame = () => {
     nextRound();
     console.log(`Player pot: ${playerPot}`);
     console.log(`Dealer pot: ${dealerPot}`);
-    // choice = prompt('would you like to play blackjack? enter yes or no' , 'yes')
-    // if (choice ==='no') {
-    //     return
-    // }
     userBet('how much would you like to bet?');
     generateCardValue(dealerHand);
     generateCardValue(dealerHand);
