@@ -113,12 +113,15 @@ const calcDealerScore = () => {
         dealerPoints = dealerHand[1].pointValue;
         console.log(`dealer card : ${dealerHand[1].faceValue} of ${dealerHand[1].suitValue}`);
         console.log(`dealer points: ${dealerPoints}`);
+        document.querySelector('#dealer-score').innerText = `Count: ${dealerPoints}`;
     } else{
         for (i=0 ; i<dealerHand.length ; i++) {
             dealerPoints += dealerHand[i].pointValue;
             console.log(`dealer card : ${dealerHand[i].faceValue} of ${dealerHand[i].suitValue}`);
         }
         console.log(`dealer points: ${dealerPoints}`);
+        document.querySelector('#dealer-score').innerText = `Count: ${dealerPoints}`;
+        console.log('dealer points should update line 124');
     }
 }
 
@@ -130,6 +133,7 @@ const calcPlayerScore = () => {
         console.log(`player card : ${playerHand[i].faceValue} of ${playerHand[i].suitValue}`);
     }
     console.log(`player points: ${playerPoints}`);
+    document.querySelector('#player-score').innerText = `Count: ${playerPoints}`;
 }
 // ================================================================
 // ================= check score, main game loop ==================
@@ -151,7 +155,7 @@ const checkScore = () => {
     if (playerDecisionMade === 'not made'){
         setTimeout(playerDecision , 1000);
     } else if (playerDecisionMade === 'made') {       // I should never get to this loop if user busts
-        dealerDecisionModel();
+        setTimeout( dealerDecisionModel , 2000);
     }
 }
 
@@ -174,7 +178,7 @@ const playerDecision = () => {
 const dealerDecisionModel = () => {
     if (playerDecisionMade === 'made'){      
         if (playerPoints === dealerPoints) {
-            alert ('tie, no winners line 177');
+            setTimeout( () => {alert ('tie, no winners line 177')} , 1000);
             userChoice();
             return
         }
@@ -194,14 +198,14 @@ const dealerDecisionModel = () => {
 const checkForAWin = () => {
     if (playerDecisionMade = 'made'){ 
         if (playerPoints > dealerPoints) {
-            alert('player won! line 197');
+            setTimeout( () => {alert('player won! line 197')} , 1000);
             playerPot += playerBet*1;
             dealerPot -= playerBet*1;
             userChoice();
             return
         }
         if (dealerPoints > playerPoints) { 
-            alert('dealer won! line 204');
+            setTimeout( () => {alert('dealer won! line 204')} , 1000);
             playerPot -= playerBet*1;
             dealerPot += playerBet*1;
             userChoice();
@@ -240,7 +244,7 @@ const checkIfAceInHand = () => {
 const userBet = (message) => {
     playerBet = prompt( message + ' line 241' , '50');
     if (playerBet > playerPot) {
-        alert ('you do not have enough money! line 243');
+        setTimeout( () => {alert ('you do not have enough money! line 243')} , 1000);
         userBet(message);
     }
     return playerBet;
@@ -249,7 +253,7 @@ const userBet = (message) => {
 // ============ check for bust
 const checkForBust = () => {
     if (playerPoints > 21) {
-        alert ('dealer wins, player hand is > 21 line 252');
+        setTimeout( ()=> {alert ('dealer wins, player hand is > 21 line 252')} , 1000);
         console.log('check for win, player');
         playerBust = true;                // added this so that playerdecision function is not triggered again. 
         playerPot -= playerBet*1;
@@ -258,7 +262,7 @@ const checkForBust = () => {
         return
     }
     else if (dealerPoints > 21) {
-        alert ('player wins, dealer hand is > 21 line 261');
+        setTimeout( ()=> {alert ('player wins, dealer hand is > 21 line 261')} , 1000);
         console.log('check for win, dealer');
         dealerBust = true;
         playerPot += playerBet*1;
@@ -318,6 +322,7 @@ const generateCard = (cardID , card) => {
     divCard.appendChild(divText);
     // document.querySelector('#dealer-cards').appendChild(divCard);
     document.querySelector(cardID).appendChild(divCard);
+    console.log('card generated and should be shown on UI');
 }
 
 
@@ -327,8 +332,14 @@ const generateCard = (cardID , card) => {
 
 
 
+
+
 // ================ start of game ================
-setTimeout( userChoice() , 1000);
+// window.addEventListener('DOMContentLoaded', userChoice());
+
+
+// //this did work
+setTimeout( userChoice , 1000);
 
 
 
