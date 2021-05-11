@@ -69,6 +69,10 @@ const reset = () => {
 // ============= next round function, used to reset at the beginning of each hand
 const nextRound = () => {
     console.log('next round');
+    let cardList = document.querySelectorAll('.card');
+    for (i=0 ; i<cardList.length ; i++){
+        cardList[i].remove();
+    }
     dealerHand = [];
     dealerPoints = 0;
     playerHand = [];
@@ -92,6 +96,13 @@ const generateCardValue = (forWho) => {
     forWho.push(card);
     usedDeckOfCards.push(card);
     deckOfCards.splice(index , 1);
+    //this is for generating the card in the UI, will need to add if statement
+    if (forWho === dealerHand) {
+        generateCard('#dealer-hand' , card );
+    } else if (forWho === playerHand) {
+        generateCard('#player-hand' , card);
+    }
+    
 }
 
 // ================ calculate dealer score
@@ -146,7 +157,7 @@ const checkScore = () => {
 
 // ============== player decision
 const playerDecision = () => {
-    let decision = prompt('would you like to hit or stay' , 'stay');
+    let decision = prompt('would you like to hit or stay line 160' , 'stay');
     console.log(decision);
     console.log('******************')
     if (decision === 'hit') {
@@ -163,7 +174,7 @@ const playerDecision = () => {
 const dealerDecisionModel = () => {
     if (playerDecisionMade === 'made'){      
         if (playerPoints === dealerPoints) {
-            alert ('tie, no winners');
+            alert ('tie, no winners line 177');
             userChoice();
             return
         }
@@ -183,14 +194,14 @@ const dealerDecisionModel = () => {
 const checkForAWin = () => {
     if (playerDecisionMade = 'made'){ 
         if (playerPoints > dealerPoints) {
-            alert('player won! line 188');
+            alert('player won! line 197');
             playerPot += playerBet*1;
             dealerPot -= playerBet*1;
             userChoice();
             return
         }
         if (dealerPoints > playerPoints) { 
-            alert('dealer won! line 194');
+            alert('dealer won! line 204');
             playerPot -= playerBet*1;
             dealerPot += playerBet*1;
             userChoice();
@@ -227,9 +238,9 @@ const checkIfAceInHand = () => {
 
 // =========== allow user to bet
 const userBet = (message) => {
-    playerBet = prompt( message , '50');
+    playerBet = prompt( message + ' line 241' , '50');
     if (playerBet > playerPot) {
-        alert ('you do not have enough money!');
+        alert ('you do not have enough money! line 243');
         userBet(message);
     }
     return playerBet;
@@ -238,7 +249,7 @@ const userBet = (message) => {
 // ============ check for bust
 const checkForBust = () => {
     if (playerPoints > 21) {
-        alert ('dealer wins, player hand is > 21 line 241');
+        alert ('dealer wins, player hand is > 21 line 252');
         console.log('check for win, player');
         playerBust = true;                // added this so that playerdecision function is not triggered again. 
         playerPot -= playerBet*1;
@@ -247,7 +258,7 @@ const checkForBust = () => {
         return
     }
     else if (dealerPoints > 21) {
-        alert ('player wins, dealer hand is > 21 line 249');
+        alert ('player wins, dealer hand is > 21 line 261');
         console.log('check for win, dealer');
         dealerBust = true;
         playerPot += playerBet*1;
@@ -259,12 +270,13 @@ const checkForBust = () => {
 
 // ============= user chooses to start game or not
 const userChoice = () => {
-    choice = prompt('would you like to play blackjack? enter yes or no' , 'yes')
-    if (choice ==='no') {
+    choice = prompt('would you like to play blackjack? enter yes or no line 273' , 'yes');
+    if (choice === 'no') {
         return
     } else if (choice === 'yes') {
         startGame();
     } else {
+         console.log('no choice line 279')
         return
     }
 }
@@ -275,7 +287,7 @@ const startGame = () => {
     nextRound();
     console.log(`Player pot: ${playerPot}`);
     console.log(`Dealer pot: ${dealerPot}`);
-    userBet('how much would you like to bet?');
+    setTimeout( userBet('how much would you like to bet?') , 500);
     generateCardValue(dealerHand);
     generateCardValue(dealerHand);
     generateCardValue(playerHand);
@@ -291,6 +303,22 @@ const startGame = () => {
 }
 
 
+// ==============================================================================
+// ========================= UI FUNCTIONALITY ===================================
+// ==============================================================================
+
+// ============== function to generate a div that represents the randomly chosen card, this is for the UI portion. I will hold off on this for now.
+const generateCard = (cardID , card) => {
+    let divCard = document.createElement('div');
+    let divText = document.createElement('div');
+    divCard.setAttribute('class' , 'card');
+    divText.setAttribute('class' , 'card-text');
+    // divText.innerText = '2 hearts';
+    divText.innerText = `${card.faceValue} ${card.suitValue}`;
+    divCard.appendChild(divText);
+    // document.querySelector('#dealer-cards').appendChild(divCard);
+    document.querySelector(cardID).appendChild(divCard);
+}
 
 
 
@@ -300,23 +328,9 @@ const startGame = () => {
 
 
 // ================ start of game ================
-userChoice();
+setTimeout( userChoice() , 1000);
 
 
-// ==============================================================================
-// ========================= UI FUNCTIONALITY ===================================
-// ==============================================================================
-
-// ============== function to generate a div that represents the randomly chosen card, this is for the UI portion. I will hold off on this for now.
-// const generateCard = () => {
-//     let divCard = document.createElement('div');
-//     let divText = document.createElement('div');
-//     divCard.setAttribute('class' , 'card');
-//     divText.setAttribute('class' , 'card-text');
-//     divText.innerText = '2 hearts';
-//     divCard.appendChild(divText);
-//     document.querySelector('#dealer-cards').appendChild(divCard);
-// }
 
 
 
