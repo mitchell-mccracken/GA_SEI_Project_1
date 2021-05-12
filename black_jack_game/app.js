@@ -44,6 +44,8 @@ document.querySelector('#stay-btn').addEventListener('click' , () => {
 
 
 
+
+
 // ==================== function to determine point value
 const pointValue = (faceValue) => {
     if (faceValue === 'ace') {
@@ -87,9 +89,16 @@ for (number of cardNumberArray) {
 // =============== function to reset the game
 const reset = () => {
     console.log('game reset');
-    playerHand = [];
-    dealerHand = [];
+    nextRound();
+    playerPot = 500;
+    dealerPot = 0;
+    potUpdate();
+    setTimeout( userChoice , 1000);
+    document.querySelector('#dealer-score').innerText = 'Count: ';
+    document.querySelector('#player-score').innerText = 'Count: ';
 }
+
+document.querySelector('#restart-btn').addEventListener('click' , reset);
 
 // ============= next round function, used to reset at the beginning of each hand
 const nextRound = () => {
