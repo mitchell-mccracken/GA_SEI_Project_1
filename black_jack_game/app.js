@@ -236,19 +236,19 @@ const dealerDecisionModel = () => {
 const checkForAWin = () => {
     if (playerDecisionMade = 'made'){ 
         if (playerPoints > dealerPoints) {
-            setTimeout( () => {alert('player won! line 222')} , 1000);
             playerPot += playerBet*1;
             dealerPot -= playerBet*1;
             potUpdate();
+            setTimeout( () => {alert('player won! line 222')} , 500);
             userChoice();
             return
         }
         if (dealerPoints > playerPoints) { 
-            alert('dealer won! line 229');
             playerPot -= playerBet*1;
             dealerPot += playerBet*1;
             potUpdate();
-            userChoice();
+            setTimeout( () => {alert('dealer won! line 229')} , 500);
+            setTimeout(userChoice , 1000);
             return
         }
     }
