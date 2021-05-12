@@ -19,6 +19,31 @@ let playerBust = false;
 let dealerBust = false;
 let choice = '';
 
+// =============== populate the pots
+const potUpdate = () => {
+    document.querySelector('#dealer-winnings').innerText = `Dealer winnings: ${dealerPot}`;
+    document.querySelector('#player-winnings').innerText = `Player winnings: ${playerPot}`;
+};
+potUpdate();
+
+
+// ===========================================================
+// ==================== adding event listeners ===============
+document.querySelector('#hit-btn').addEventListener('click' , () => { 
+    let decision = 'hit';
+    // return decision;
+    playerDecision(decision);
+});
+
+document.querySelector('#stay-btn').addEventListener('click' , () => { 
+    let decision = 'stay';
+    // return decision;
+    playerDecision(decision);
+});
+
+
+
+
 // ==================== function to determine point value
 const pointValue = (faceValue) => {
     if (faceValue === 'ace') {
@@ -121,7 +146,7 @@ const calcDealerScore = () => {
         }
         console.log(`dealer points: ${dealerPoints}`);
         document.querySelector('#dealer-score').innerText = `Count: ${dealerPoints}`;
-        console.log('dealer points should update line 124');
+        console.log('dealer points should update line 142');
     }
 }
 
@@ -155,20 +180,24 @@ const checkScore = () => {
     if (playerDecisionMade === 'not made'){
         setTimeout(playerDecision , 1000);
     } else if (playerDecisionMade === 'made') {       // I should never get to this loop if user busts
-        setTimeout( dealerDecisionModel , 2000);
+        setTimeout( dealerDecisionModel , 1000);
     }
 }
 
 // ============== player decision
-const playerDecision = () => {
-    let decision = prompt('would you like to hit or stay line 160' , 'stay');
+const playerDecision = (decision) => {
+    // let decision = prompt('would you like to hit or stay line 160' , 'stay');
+    // setTimeout( () => {
+    //     let decision = prompt('would you like to hit or stay line 166' , 'stay');
+    // } , 5000);
+    let playerDecision = decision;
     console.log(decision);
     console.log('******************')
-    if (decision === 'hit') {
+    if (playerDecision === 'hit') {
         generateCardValue(playerHand);
         checkScore();
     }
-    else if (decision === 'stay') {
+    else if (playerDecision === 'stay') {
         playerDecisionMade = 'made';
         checkScore();
     } 
@@ -178,7 +207,7 @@ const playerDecision = () => {
 const dealerDecisionModel = () => {
     if (playerDecisionMade === 'made'){      
         if (playerPoints === dealerPoints) {
-            setTimeout( () => {alert ('tie, no winners line 177')} , 1000);
+            alert ('tie, no winners line 202');
             userChoice();
             return
         }
@@ -198,16 +227,18 @@ const dealerDecisionModel = () => {
 const checkForAWin = () => {
     if (playerDecisionMade = 'made'){ 
         if (playerPoints > dealerPoints) {
-            setTimeout( () => {alert('player won! line 197')} , 1000);
+            setTimeout( () => {alert('player won! line 222')} , 1000);
             playerPot += playerBet*1;
             dealerPot -= playerBet*1;
+            potUpdate();
             userChoice();
             return
         }
         if (dealerPoints > playerPoints) { 
-            setTimeout( () => {alert('dealer won! line 204')} , 1000);
+            alert('dealer won! line 229');
             playerPot -= playerBet*1;
             dealerPot += playerBet*1;
+            potUpdate();
             userChoice();
             return
         }
@@ -244,7 +275,7 @@ const checkIfAceInHand = () => {
 const userBet = (message) => {
     playerBet = prompt( message + ' line 241' , '50');
     if (playerBet > playerPot) {
-        setTimeout( () => {alert ('you do not have enough money! line 243')} , 1000);
+        setTimeout( () => {alert ('you do not have enough money! line 268')} , 1000);
         userBet(message);
     }
     return playerBet;
@@ -253,34 +284,38 @@ const userBet = (message) => {
 // ============ check for bust
 const checkForBust = () => {
     if (playerPoints > 21) {
-        setTimeout( ()=> {alert ('dealer wins, player hand is > 21 line 252')} , 1000);
+        setTimeout( ()=> {alert ('dealer wins, player hand is > 21 line 277')} , 500);
+        // alert('dealer wins, playerhand is > 21 line 278');
         console.log('check for win, player');
         playerBust = true;                // added this so that playerdecision function is not triggered again. 
         playerPot -= playerBet*1;
         dealerPot += playerBet*1;
-        userChoice();
+        potUpdate();
+        setTimeout( () => {userChoice()} , 1000);
         return
     }
     else if (dealerPoints > 21) {
-        setTimeout( ()=> {alert ('player wins, dealer hand is > 21 line 261')} , 1000);
+        setTimeout( ()=> {alert ('player wins, dealer hand is > 21 line 286')} , 500);
+        // alert('player wins, dealer hand is >21 line 288');
         console.log('check for win, dealer');
         dealerBust = true;
         playerPot += playerBet*1;
         dealerPot -= playerBet*1;
-        userChoice();
+        potUpdate();
+        setTimeout( () => {userChoice()} , 1000);
         return
     }
 }
 
 // ============= user chooses to start game or not
 const userChoice = () => {
-    choice = prompt('would you like to play blackjack? enter yes or no line 273' , 'yes');
+    choice = prompt('would you like to play blackjack? enter yes or no line 298' , 'yes');
     if (choice === 'no') {
         return
     } else if (choice === 'yes') {
         startGame();
     } else {
-         console.log('no choice line 279')
+         console.log('no choice line 304')
         return
     }
 }
