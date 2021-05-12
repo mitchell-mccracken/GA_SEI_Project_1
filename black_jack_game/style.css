@@ -26,9 +26,12 @@ h4{
     /* display: inline-block; */
     display: inline-flex;
     flex-direction: row;
-    background-color:crimson;
+    /* background-color:crimson; */
+    /* background-image: url('images/10C.png'); */
+    /* background-size: calc(10vh * 0.66); */
+    background-size:cover;
     border-radius: 1vh;
-    height: 10vh;
+    height: 11vh;
     width: calc(10vh * 0.71);       /*ratio of card size */
     /* border: 1px solid blueviolet; */
     margin: 0 3px;

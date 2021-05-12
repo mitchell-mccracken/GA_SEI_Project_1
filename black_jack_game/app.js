@@ -5,8 +5,8 @@ console.log('js file connected')
 // ====================  variables to create deck of cards array
 const deckOfCards = [];
 const usedDeckOfCards = [];
-const cardNumberArray = [ 2, 3, 4, 5, 6, 7, 8, 9, 10, 'jack', 'queen', 'king', 'ace'];
-const cardSuitArray = [ 'hearts' , 'diamonds' , 'spades' , 'clubs'];
+const cardNumberArray = [ 2, 3, 4, 5, 6, 7, 8, 9, 10, 'Jack', 'Queen', 'King', 'Ace'];
+const cardSuitArray = [ 'Hearts' , 'Diamonds' , 'Spades' , 'Clubs'];
 let dealerHand = [];
 let dealerPoints = 0;
 let playerHand = [];
@@ -42,13 +42,9 @@ document.querySelector('#stay-btn').addEventListener('click' , () => {
 });
 
 
-
-
-
-
 // ==================== function to determine point value
 const pointValue = (faceValue) => {
-    if (faceValue === 'ace') {
+    if (faceValue === 'Ace') {
         return 11;
     } else if (faceValue === cardNumberArray[9] || faceValue === cardNumberArray[10] || faceValue === cardNumberArray[11] ) {
         return 10;
@@ -59,10 +55,26 @@ const pointValue = (faceValue) => {
 
 // =================== function to determine color
 const cardColor = (suitValue) => {
-    if (suitValue === 'hearts' || suitValue === 'diamonds') {
+    if (suitValue === 'Hearts' || suitValue === 'Diamonds') {
         return 'red';
     } else {
         return 'black';
+    }
+}
+
+// ================== Generate image url
+const imgURL = (faceValue , suitValue) => {
+    if (faceValue.length > 2 && faceValue[0] ==='A' && suitValue[0] === 'D') {
+        let imageURL = `url('images/${faceValue[0]}ce${suitValue[0]}.png')`;
+        return imageURL;
+    } 
+    else if (faceValue.length > 2) {
+        let imageURL = `url('images/${faceValue[0]}${suitValue[0]}.png')`;
+        return imageURL;
+    }
+    else {
+        let imageURL = `url('images/${faceValue}${suitValue[0]}.png')`;
+        return imageURL;
     }
 }
 
@@ -73,6 +85,8 @@ class CardGeneration {
         this.suitValue = suitValue;
         this.pointValue = pointValue(faceValue);
         this.color = cardColor(suitValue);
+        // this.image = `url('images/${faceValue[]}${suitValue[0]}.png')`;
+        this.image = imgURL(faceValue , suitValue);
     }
 }
 
@@ -260,7 +274,7 @@ const checkIfAceInHand = () => {
         // check if player has an ace, if so change value from 11 to 1
         for (i=0 ; i<playerHand.length ; i++) {
             let card = playerHand[i];
-            if (card.faceValue === 'ace' && card.pointValue === 11) {
+            if (card.faceValue === 'Ace' && card.pointValue === 11) {
                 console.log('ace found, changing from 11 to 1 point *******');
                 card.pointValue = 1;
                 calcPlayerScore();
@@ -271,7 +285,7 @@ const checkIfAceInHand = () => {
         // check if dealer has an ace, if so change value from 11 to 1
         for (i=0 ; i<dealerHand.length ; i++) {
             let card = dealerHand[i];
-            if (card.faceValue === 'ace' && card.pointValue === 11) {
+            if (card.faceValue === 'Ace' && card.pointValue === 11) {
                 console.log('ace found, changing from 11 to 1 point *******');
                 card.pointValue = 1;
                 calcDealerScore();
@@ -358,12 +372,15 @@ const startGame = () => {
 // ============== function to generate a div that represents the randomly chosen card, this is for the UI portion. I will hold off on this for now.
 const generateCard = (cardID , card) => {
     let divCard = document.createElement('div');
+    // divCard.style.backgroundImage= "url('images/AceD.png')";
+    divCard.style.backgroundImage = card.image;
+    console.log('the image for this card is ' + card.image)
     let divText = document.createElement('div');
     divCard.setAttribute('class' , 'card');
-    divText.setAttribute('class' , 'card-text');
+    // divText.setAttribute('class' , 'card-text');
     // divText.innerText = '2 hearts';
-    divText.innerText = `${card.faceValue} ${card.suitValue}`;
-    divCard.appendChild(divText);
+    // divText.innerText = `${card.faceValue} ${card.suitValue}`;
+    // divCard.appendChild(divText);
     // document.querySelector('#dealer-cards').appendChild(divCard);
     document.querySelector(cardID).appendChild(divCard);
     console.log('card generated and should be shown on UI');
