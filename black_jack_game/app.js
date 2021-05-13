@@ -104,7 +104,6 @@ for (number of cardNumberArray) {
 
 // =============== function to reset the game
 const reset = () => {
-    console.log('game reset');
     nextRound();
     playerPot = 500;
     dealerPot = 0;
@@ -118,7 +117,6 @@ document.querySelector('#restart-btn').addEventListener('click' , reset);
 
 // ============= next round function, used to reset at the beginning of each hand
 const nextRound = () => {
-    console.log('next round');
     let cardList = document.querySelectorAll('.card');
     for (i=0 ; i<cardList.length ; i++){
         cardList[i].remove();
@@ -160,17 +158,12 @@ const calcDealerScore = () => {
     //check if it is the first two cards for the dealer, if so only display one of them
     if (dealerHand.length === 2 && playerDecisionMade === 'not made') {
         dealerPoints = dealerHand[1].pointValue;
-        console.log(`dealer card : ${dealerHand[1].faceValue} of ${dealerHand[1].suitValue}`);
-        console.log(`dealer points: ${dealerPoints}`);
         document.querySelector('#dealer-score').innerText = `Count: ${dealerPoints}`;
     } else{
         for (i=0 ; i<dealerHand.length ; i++) {
             dealerPoints += dealerHand[i].pointValue;
-            console.log(`dealer card : ${dealerHand[i].faceValue} of ${dealerHand[i].suitValue}`);
         }
-        console.log(`dealer points: ${dealerPoints}`);
         document.querySelector('#dealer-score').innerText = `Count: ${dealerPoints}`;
-        console.log('dealer points should update line 142');
     }
 }
 
@@ -179,9 +172,7 @@ const calcPlayerScore = () => {
     playerPoints = 0;               //maybe not needed
     for (i=0 ; i<playerHand.length ; i++) {
         playerPoints += playerHand[i].pointValue;
-        console.log(`player card : ${playerHand[i].faceValue} of ${playerHand[i].suitValue}`);
     }
-    console.log(`player points: ${playerPoints}`);
     document.querySelector('#player-score').innerText = `Count: ${playerPoints}`;
 }
 // ================================================================
@@ -190,9 +181,7 @@ const calcPlayerScore = () => {
 const checkScore = () => {
     playerPoints = 0;               //have to reset everytime I count because this is set as a global variable
     dealerPoints = 0;               //have to reset everytime I count because this is set as a global variable
-    console.log('========= check score ===========')
     calcDealerScore();
-    console.log(' ------------------');
     calcPlayerScore();
     checkIfAceInHand();         //check if dealer or player is > 21 and has an ace
     checkForBust();
@@ -209,8 +198,6 @@ const checkScore = () => {
 // ============== player decision
 const playerDecision = (decision) => {
     let playerDecision = decision;
-    console.log(decision);
-    console.log('******************')
     if (playerDecision === 'hit') {
         generateCardValue(playerHand);
         checkScore();
@@ -225,17 +212,15 @@ const playerDecision = (decision) => {
 const dealerDecisionModel = () => {
     if (playerDecisionMade === 'made'){      
         if (playerPoints === dealerPoints) {
-            alert ('tie, no winners line 202');
+            alert ('tie, no winners');
             userChoice();
             return
         }
         if (dealerPoints < playerPoints) {
-            console.log('generating card for dealer');
             generateCardValue(dealerHand);
             checkScore();
         } 
         else if (dealerPoints > playerPoints) {
-            console.log('dealer wins, score greater than player score');
             checkForAWin();
         }
     }
@@ -248,7 +233,7 @@ const checkForAWin = () => {
             playerPot += playerBet*1;
             dealerPot -= playerBet*1;
             potUpdate();
-            setTimeout( () => {alert('player won! line 222')} , 500);
+            setTimeout( () => {alert('player won!')} , 500);
             userChoice();
             return
         }
@@ -256,7 +241,7 @@ const checkForAWin = () => {
             playerPot -= playerBet*1;
             dealerPot += playerBet*1;
             potUpdate();
-            setTimeout( () => {alert('dealer won! line 229')} , 500);
+            setTimeout( () => {alert('dealer won!')} , 500);
             setTimeout(userChoice , 1000);
             return
         }
@@ -270,7 +255,6 @@ const checkIfAceInHand = () => {
         for (i=0 ; i<playerHand.length ; i++) {
             let card = playerHand[i];
             if (card.faceValue === 'Ace' && card.pointValue === 11) {
-                console.log('ace found, changing from 11 to 1 point *******');
                 card.pointValue = 1;
                 calcPlayerScore();
             }
@@ -281,7 +265,6 @@ const checkIfAceInHand = () => {
         for (i=0 ; i<dealerHand.length ; i++) {
             let card = dealerHand[i];
             if (card.faceValue === 'Ace' && card.pointValue === 11) {
-                console.log('ace found, changing from 11 to 1 point *******');
                 card.pointValue = 1;
                 calcDealerScore();
             }
@@ -291,9 +274,9 @@ const checkIfAceInHand = () => {
 
 // =========== allow user to bet
 const userBet = (message) => {
-    playerBet = prompt( message + ' line 241' , '50');
+    playerBet = prompt( message , '50');
     if (playerBet > playerPot) {
-        setTimeout( () => {alert ('you do not have enough money! line 268')} , 1000);
+        setTimeout( () => {alert ('you do not have enough money!')} , 1000);
         userBet(message);
     }
     document.querySelector('#current-bet').innerText = `Current Bet: ${playerBet}`;
@@ -305,8 +288,7 @@ const checkForBust = () => {
     if (playerPoints > 21) {
         let firstDealerCard = document.querySelector('#dealer-hand > .card');
         firstDealerCard.style.backgroundImage = firstDealerCardImage;
-        setTimeout( ()=> {alert ('dealer wins, player hand is > 21 line 277')} , 500);
-        console.log('check for win, player');
+        setTimeout( ()=> {alert ('dealer wins, player hand is > 21')} , 500);
         playerBust = true;                // added this so that playerdecision function is not triggered again. 
         playerPot -= playerBet*1;
         dealerPot += playerBet*1;
@@ -315,8 +297,7 @@ const checkForBust = () => {
         return
     }
     else if (dealerPoints > 21) {
-        setTimeout( ()=> {alert ('player wins, dealer hand is > 21 line 286')} , 500);
-        console.log('check for win, dealer');
+        setTimeout( ()=> {alert ('player wins, dealer hand is > 21')} , 500);
         dealerBust = true;
         playerPot += playerBet*1;
         dealerPot -= playerBet*1;
@@ -333,7 +314,6 @@ const userChoice = () => {
     } else if (choice === 'yes') {
         startGame();
     } else {
-         console.log('no choice line 304')
         return
     }
 }
@@ -342,8 +322,6 @@ const userChoice = () => {
 // ============ function to start game
 const startGame = () => {
     nextRound();
-    console.log(`Player pot: ${playerPot}`);
-    console.log(`Dealer pot: ${dealerPot}`);
     setTimeout( userBet('how much would you like to bet?') , 500);
     generateCardValue(dealerHand);
     generateCardValue(dealerHand);
@@ -368,11 +346,9 @@ const generateCard = (cardID , card) => {
     }
     else {
         divCard.style.backgroundImage = card.image;
-        console.log('the image for this card is ' + card.image)
     }
     divCard.setAttribute('class' , 'card');
     document.querySelector(cardID).appendChild(divCard);
-    console.log('card generated and should be shown on UI');
 }
 
 // ================ start of game ================
