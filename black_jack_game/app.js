@@ -333,9 +333,9 @@ const startGame = () => {
 }
 
 
-// ==============================================================================
-// ========================= UI FUNCTIONALITY ===================================
-// ==============================================================================
+// ===========================================================================
+// ========================= UI FUNCTIONALITY ================================
+// ===========================================================================
 
 // ============== function to generate a div that represents the randomly chosen card, this is for the UI portion. I will hold off on this for now.
 const generateCard = (cardID , card) => {
@@ -351,10 +351,7 @@ const generateCard = (cardID , card) => {
     document.querySelector(cardID).appendChild(divCard);
 }
 
-// ================ start of game ================
 
-
-setTimeout( userChoice , 1000);
 
 
 
