@@ -18,6 +18,7 @@ let playerBet = 0;
 let playerBust = false;
 let dealerBust = false;
 let choice = '';
+let firstDealerCardImage = '';
 
 // =============== populate the pots
 const potUpdate = () => {
@@ -42,6 +43,11 @@ document.querySelector('#hit-btn').addEventListener('click' , () => {
 
 document.querySelector('#stay-btn').addEventListener('click' , () => { 
     let decision = 'stay';
+    let firstDealerCard = document.querySelector('#dealer-hand > .card');
+    // firstDealerCard.style.backgroundImage = firstDealerCard.image
+    firstDealerCard.style.backgroundImage = firstDealerCardImage;
+
+    // document.querySelector("#dealer-hand > div:nth-child(4)").style.backgroundImage = document.querySelector("#dealer-hand > div:nth-child(4)").style.backgroundImage.image;
     playerDecision(decision);
 });
 
@@ -378,9 +384,16 @@ const startGame = () => {
 const generateCard = (cardID , card) => {
     let divCard = document.createElement('div');
     // divCard.style.backgroundImage= "url('images/AceD.png')";
-    divCard.style.backgroundImage = card.image;
-    console.log('the image for this card is ' + card.image)
-    let divText = document.createElement('div');
+    if (cardID === '#dealer-hand' && dealerHand.length === 1) {
+        divCard.style.backgroundImage = "url('images/gray_back.png')";
+        firstDealerCardImage = card.image;
+    }
+    else {
+        divCard.style.backgroundImage = card.image;
+        console.log('the image for this card is ' + card.image)
+    }
+    
+    // let divText = document.createElement('div');
     divCard.setAttribute('class' , 'card');
     // divText.setAttribute('class' , 'card-text');
     // divText.innerText = '2 hearts';
