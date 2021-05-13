@@ -6,11 +6,10 @@
 
 html{
     height:98%;
-    /* border: 1px solid blueviolet; */
 }
 body{
     background-color: rgb(48, 122, 4);
-    border: 2px solid rgb(241, 5, 5);
+    /* border: 2px solid rgb(241, 5, 5); */
     height: 98%;
     text-align: center;
     
@@ -18,28 +17,24 @@ body{
 h1{
     font-family:'coffee-tin-font', sans-serif;
     font-size: 6vh;
-    margin: 25px 0 10px 0;
-    /* text-align: center; */
-    border: 2px solid black;
+    margin: 25px 10px 10px 10px;
+    background-color: rgb(221, 221, 221);
+    border-radius: 15px;
+    border: 3px solid black;
+    /* border: 2px solid black; */
 }
 h4{
     font-family: 'Roboto Condensed', sans-serif;
-    /* width: 100%; */
     margin: 10px 0 ;
 }
 .container{
-    border: 2px solid rgb(5, 241, 44);
+    /* border: 2px solid rgb(5, 241, 44); */
     height: 25vh;
-    /* display:flex; */
-    /* display:inline-block; */
 }
 .card{
     /* display: inline-block; */
     display: inline-flex;
     flex-direction: row;
-    /* background-color:crimson; */
-    /* background-image: url('images/10C.png'); */
-    /* background-size: calc(10vh * 0.66); */
     background-size:cover;
     border-radius: 0.75vh;
     height: 12vh;
@@ -59,12 +54,11 @@ h4{
 }
 
 .left-side{
-    border: 1px solid green;
+    /* border: 1px solid green; */
     display: flex;
     width: 50%;
     flex-direction: column;
     justify-content: space-evenly;
-    /* flex-direction: column; */
 }
 .left-side button {
     height: 30%;
@@ -74,10 +68,124 @@ h4{
 }
 
 .right-side{
-    border: 1px solid green;
+    /* border: 1px solid green; */
     display: flex;
     width: 50%;
     flex-direction: column;
     justify-content: space-evenly;
-    /* flex-direction: column; */
+}
+
+.right-side h4 {
+    border: 1px solid black;
+    height: 25%;
+    width: 80%;
+    border-radius: 15px;
+    margin: 5px 0 5px 10px;
+    background-color: whitesmoke;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* text-align: center; */
+}
+
+
+/* ======== media rule ================ */
+@media screen and (min-width: 650px) {
+
+    html{
+        height:98%;
+    }
+    body{
+        background-color: rgb(48, 122, 4);
+        /* border: 2px solid rgb(241, 5, 5); */
+        height: 98%;
+        text-align: center;
+        
+    }
+    h1{
+        font-family:'coffee-tin-font', sans-serif;
+        font-size: 6vh;
+        margin: 25px 20px 10px 20px;
+        background-color: rgb(221, 221, 221);
+        border-radius: 15px;
+        border: 3px solid black;
+        /* border: 2px solid black; */
+    }
+    h4{
+        font-family: 'Roboto Condensed', sans-serif;
+        margin: 10px 0 ;
+    }
+    #top-container , #bottom-container{
+        /* border: 2px solid rgb(5, 241, 44); */
+        height: 35vh;
+    }
+
+    .container{
+        /* border: 2px solid rgb(5, 241, 44); */
+        /* height: 25vh; */
+    }
+
+    .card{
+         display: inline-flex;
+        flex-direction: row;
+        background-size:cover;
+        border-radius: 0.75vh;
+        height: 170px;
+        /* width: calc(18vw * 0.67); */
+        width: calc(170px * 0.67);       
+        /*ratio of card size */
+        /* border: 1px solid blueviolet; */
+        margin: 0 2px;
+    }
+    
+    .card-text{
+        margin: auto;
+        align-items: stretch;
+    }
+    
+    #middle-container{
+        display:flex;
+        justify-content: space-between;
+        height: 10%;
+    }
+    
+    .left-side{
+        /* border: 1px solid rgb(0, 0, 0); */
+        display: flex;
+        width: 50%;
+        /* flex-direction: column; */
+        flex-direction: row;
+        justify-content: space-evenly;
+        align-items: center;
+    }
+    .left-side button {
+        height: 60%;
+        width:28%;
+        border-radius: 15px;
+        margin: 5px 0 5px 10px;
+    }
+
+    
+    .right-side{
+        /* border: 1px solid rgb(0, 0, 0); */
+        display: flex;
+        width: 50%;
+        /* flex-direction: column; */
+        flex-direction: row;
+        justify-content: space-evenly;
+        align-items: center;
+    }
+
+    .right-side h4 {
+        border: 3px solid black;
+        height: 60%;
+        width:28%;
+        border-radius: 15px;
+        margin: 5px 0 5px 10px;
+        background-color: whitesmoke;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        /* text-align: center; */
+    }
 }
