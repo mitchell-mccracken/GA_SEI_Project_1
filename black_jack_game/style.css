@@ -23,6 +23,7 @@ h1{
     border: 2px solid black;
 }
 h4{
+    font-family: 'Roboto Condensed', sans-serif;
     /* width: 100%; */
     margin: 10px 0 ;
 }
