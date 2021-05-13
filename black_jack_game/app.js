@@ -23,6 +23,7 @@ let choice = '';
 const potUpdate = () => {
     document.querySelector('#dealer-winnings').innerText = `Dealer winnings: ${dealerPot}`;
     document.querySelector('#player-winnings').innerText = `Player winnings: ${playerPot}`;
+    document.querySelector('#current-bet').innerText = 'Current Bet:';
 };
 potUpdate();
 
@@ -30,14 +31,17 @@ potUpdate();
 // ===========================================================
 // ==================== adding event listeners ===============
 document.querySelector('#hit-btn').addEventListener('click' , () => { 
+    if (choice !== 'yes'){
+        choice = 'yes';
+        userChoice();
+        return
+    }
     let decision = 'hit';
-    // return decision;
     playerDecision(decision);
 });
 
 document.querySelector('#stay-btn').addEventListener('click' , () => { 
     let decision = 'stay';
-    // return decision;
     playerDecision(decision);
 });
 
@@ -301,6 +305,7 @@ const userBet = (message) => {
         setTimeout( () => {alert ('you do not have enough money! line 268')} , 1000);
         userBet(message);
     }
+    document.querySelector('#current-bet').innerText = `Current Bet: ${playerBet}`;
     return playerBet;
 }
 
@@ -332,7 +337,7 @@ const checkForBust = () => {
 
 // ============= user chooses to start game or not
 const userChoice = () => {
-    choice = prompt('would you like to play blackjack? enter yes or no line 298' , 'yes');
+    // choice = prompt('would you like to play blackjack? enter yes or no line 298' , 'yes');
     if (choice === 'no') {
         return
     } else if (choice === 'yes') {

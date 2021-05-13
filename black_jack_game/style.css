@@ -1,20 +1,30 @@
+/* how to download and install custom font => https://stackoverflow.com/questions/7961721/how-do-i-install-a-custom-font-on-an-html-site */
+@font-face {
+    font-family: coffee-tin-font;
+    src: url('CoffeetinInitials-YXJ2.ttf');
+}
+
 html{
     height:98%;
     /* border: 1px solid blueviolet; */
 }
 body{
-    background-color: rgb(209, 208, 207);
+    background-color: rgb(48, 122, 4);
     border: 2px solid rgb(241, 5, 5);
     height: 98%;
     text-align: center;
     
 }
 h1{
+    font-family:'coffee-tin-font', sans-serif;
+    font-size: 6vh;
+    margin: 25px 0 10px 0;
     /* text-align: center; */
     border: 2px solid black;
 }
 h4{
     /* width: 100%; */
+    margin: 10px 0 ;
 }
 .container{
     border: 2px solid rgb(5, 241, 44);
@@ -30,11 +40,11 @@ h4{
     /* background-image: url('images/10C.png'); */
     /* background-size: calc(10vh * 0.66); */
     background-size:cover;
-    border-radius: 1vh;
-    height: 11vh;
-    width: calc(10vh * 0.71);       /*ratio of card size */
+    border-radius: 0.75vh;
+    height: 12vh;
+    width: calc(12vh * 0.67);       /*ratio of card size */
     /* border: 1px solid blueviolet; */
-    margin: 0 3px;
+    margin: 0 2px;
 }
 .card-text{
     margin: auto;
