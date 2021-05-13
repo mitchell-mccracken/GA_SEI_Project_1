@@ -1,8 +1,5 @@
-//print function used in place of console.log
-const print = (input) => { console.log(input) };
-console.log('js file connected')
 
-// ====================  variables to create deck of cards array
+// ====================  variables needed throughout the program
 const deckOfCards = [];
 const usedDeckOfCards = [];
 const cardNumberArray = [ 2, 3, 4, 5, 6, 7, 8, 9, 10, 'Jack', 'Queen', 'King', 'Ace'];
@@ -44,13 +41,9 @@ document.querySelector('#hit-btn').addEventListener('click' , () => {
 document.querySelector('#stay-btn').addEventListener('click' , () => { 
     let decision = 'stay';
     let firstDealerCard = document.querySelector('#dealer-hand > .card');
-    // firstDealerCard.style.backgroundImage = firstDealerCard.image
     firstDealerCard.style.backgroundImage = firstDealerCardImage;
-
-    // document.querySelector("#dealer-hand > div:nth-child(4)").style.backgroundImage = document.querySelector("#dealer-hand > div:nth-child(4)").style.backgroundImage.image;
     playerDecision(decision);
 });
-
 
 // ==================== function to determine point value
 const pointValue = (faceValue) => {
@@ -72,7 +65,7 @@ const cardColor = (suitValue) => {
     }
 }
 
-// ================== Generate image url
+// ================== Generate card image url
 const imgURL = (faceValue , suitValue) => {
     if (faceValue.length > 2 && faceValue[0] ==='A' && suitValue[0] === 'D') {
         let imageURL = `url('images/${faceValue[0]}ce${suitValue[0]}.png')`;
@@ -95,7 +88,6 @@ class CardGeneration {
         this.suitValue = suitValue;
         this.pointValue = pointValue(faceValue);
         this.color = cardColor(suitValue);
-        // this.image = `url('images/${faceValue[]}${suitValue[0]}.png')`;
         this.image = imgURL(faceValue , suitValue);
     }
 }
@@ -160,7 +152,6 @@ const generateCardValue = (forWho) => {
     } else if (forWho === playerHand) {
         generateCard('#player-hand' , card);
     }
-    
 }
 
 // ================ calculate dealer score
@@ -203,26 +194,20 @@ const checkScore = () => {
     calcDealerScore();
     console.log(' ------------------');
     calcPlayerScore();
-
-    // check if dealer or player is > 21 and has an ace
-    checkIfAceInHand();         //only checks if score is >21
+    checkIfAceInHand();         //check if dealer or player is > 21 and has an ace
     checkForBust();
     if (playerBust || dealerBust) {
         return
     }
     if (playerDecisionMade === 'not made'){
         setTimeout(playerDecision , 1000);
-    } else if (playerDecisionMade === 'made') {       // I should never get to this loop if user busts
+    } else if (playerDecisionMade === 'made') {  
         setTimeout( dealerDecisionModel , 1000);
     }
 }
 
 // ============== player decision
 const playerDecision = (decision) => {
-    // let decision = prompt('would you like to hit or stay line 160' , 'stay');
-    // setTimeout( () => {
-    //     let decision = prompt('would you like to hit or stay line 166' , 'stay');
-    // } , 5000);
     let playerDecision = decision;
     console.log(decision);
     console.log('******************')
@@ -318,8 +303,9 @@ const userBet = (message) => {
 // ============ check for bust
 const checkForBust = () => {
     if (playerPoints > 21) {
+        let firstDealerCard = document.querySelector('#dealer-hand > .card');
+        firstDealerCard.style.backgroundImage = firstDealerCardImage;
         setTimeout( ()=> {alert ('dealer wins, player hand is > 21 line 277')} , 500);
-        // alert('dealer wins, playerhand is > 21 line 278');
         console.log('check for win, player');
         playerBust = true;                // added this so that playerdecision function is not triggered again. 
         playerPot -= playerBet*1;
@@ -330,7 +316,6 @@ const checkForBust = () => {
     }
     else if (dealerPoints > 21) {
         setTimeout( ()=> {alert ('player wins, dealer hand is > 21 line 286')} , 500);
-        // alert('player wins, dealer hand is >21 line 288');
         console.log('check for win, dealer');
         dealerBust = true;
         playerPot += playerBet*1;
@@ -343,7 +328,6 @@ const checkForBust = () => {
 
 // ============= user chooses to start game or not
 const userChoice = () => {
-    // choice = prompt('would you like to play blackjack? enter yes or no line 298' , 'yes');
     if (choice === 'no') {
         return
     } else if (choice === 'yes') {
@@ -365,14 +349,9 @@ const startGame = () => {
     generateCardValue(dealerHand);
     generateCardValue(playerHand);
     generateCardValue(playerHand);
-    // playerHand[0].pointValue = 2;
-    // playerHand[1].pointValue =2;
-    // dealerHand[0].pointValue =2;
-    // dealerHand[1].pointValue = 2;
     // playerHand[1] = deckOfCards[(deckOfCards.length -1)];        // used to check ace from 11 to 1 functionality
 
-    checkScore();           //might want to hard code the dealer score check of the single card then roll into score check of player followed by player choice. player choice wll be essentially a loop until they choose stay or 5 cards are delt. After stay or 5 player cardss then it will go into the dealer loop checking the following : is dealer score? > 21 -no-> is dealer score > player score? -no-> deal card for dealer, start at the beginning of checks
-    
+    checkScore();           
 }
 
 
@@ -383,7 +362,6 @@ const startGame = () => {
 // ============== function to generate a div that represents the randomly chosen card, this is for the UI portion. I will hold off on this for now.
 const generateCard = (cardID , card) => {
     let divCard = document.createElement('div');
-    // divCard.style.backgroundImage= "url('images/AceD.png')";
     if (cardID === '#dealer-hand' && dealerHand.length === 1) {
         divCard.style.backgroundImage = "url('images/gray_back.png')";
         firstDealerCardImage = card.image;
@@ -392,32 +370,14 @@ const generateCard = (cardID , card) => {
         divCard.style.backgroundImage = card.image;
         console.log('the image for this card is ' + card.image)
     }
-    
-    // let divText = document.createElement('div');
     divCard.setAttribute('class' , 'card');
-    // divText.setAttribute('class' , 'card-text');
-    // divText.innerText = '2 hearts';
-    // divText.innerText = `${card.faceValue} ${card.suitValue}`;
-    // divCard.appendChild(divText);
-    // document.querySelector('#dealer-cards').appendChild(divCard);
     document.querySelector(cardID).appendChild(divCard);
     console.log('card generated and should be shown on UI');
 }
 
-
-
-
-
-
-
-
-
-
 // ================ start of game ================
-// window.addEventListener('DOMContentLoaded', userChoice());
 
 
-// //this did work
 setTimeout( userChoice , 1000);
 
 

@@ -9,7 +9,6 @@ html{
 }
 body{
     background-color: rgb(48, 122, 4);
-    /* border: 2px solid rgb(241, 5, 5); */
     height: 98%;
     text-align: center;
     
@@ -21,25 +20,21 @@ h1{
     background-color: rgb(221, 221, 221);
     border-radius: 15px;
     border: 3px solid black;
-    /* border: 2px solid black; */
 }
 h4{
     font-family: 'Roboto Condensed', sans-serif;
     margin: 10px 0 ;
 }
 .container{
-    /* border: 2px solid rgb(5, 241, 44); */
     height: 25vh;
 }
 .card{
-    /* display: inline-block; */
     display: inline-flex;
     flex-direction: row;
     background-size:cover;
     border-radius: 0.75vh;
     height: 12vh;
     width: calc(12vh * 0.67);       /*ratio of card size */
-    /* border: 1px solid blueviolet; */
     margin: 0 2px;
 }
 
@@ -54,25 +49,26 @@ h4{
 }
 
 .left-side{
-    /* border: 1px solid green; */
     display: flex;
     width: 50%;
     flex-direction: column;
     justify-content: space-evenly;
+    align-items: center;
 }
 .left-side button {
     height: 30%;
-    width:50%;
+    width:60%;
     border-radius: 15px;
-    margin: 5px 0 5px 10px;
+    margin: 5px;
+    box-shadow: -3px 3px 5px black;
 }
 
 .right-side{
-    /* border: 1px solid green; */
     display: flex;
     width: 50%;
     flex-direction: column;
     justify-content: space-evenly;
+    align-items: center;
 }
 
 .right-side h4 {
@@ -85,7 +81,6 @@ h4{
     display: flex;
     justify-content: center;
     align-items: center;
-    /* text-align: center; */
 }
 
 
@@ -97,7 +92,6 @@ h4{
     }
     body{
         background-color: rgb(48, 122, 4);
-        /* border: 2px solid rgb(241, 5, 5); */
         height: 98%;
         text-align: center;
         
@@ -109,20 +103,13 @@ h4{
         background-color: rgb(221, 221, 221);
         border-radius: 15px;
         border: 3px solid black;
-        /* border: 2px solid black; */
     }
     h4{
         font-family: 'Roboto Condensed', sans-serif;
         margin: 10px 0 ;
     }
     #top-container , #bottom-container{
-        /* border: 2px solid rgb(5, 241, 44); */
         height: 35vh;
-    }
-
-    .container{
-        /* border: 2px solid rgb(5, 241, 44); */
-        /* height: 25vh; */
     }
 
     .card{
@@ -131,10 +118,7 @@ h4{
         background-size:cover;
         border-radius: 0.75vh;
         height: 170px;
-        /* width: calc(18vw * 0.67); */
-        width: calc(170px * 0.67);       
-        /*ratio of card size */
-        /* border: 1px solid blueviolet; */
+        width: calc(170px * 0.67);       /*ratio of card size */
         margin: 0 2px;
     }
     
@@ -150,10 +134,8 @@ h4{
     }
     
     .left-side{
-        /* border: 1px solid rgb(0, 0, 0); */
         display: flex;
         width: 50%;
-        /* flex-direction: column; */
         flex-direction: row;
         justify-content: space-evenly;
         align-items: center;
@@ -162,15 +144,12 @@ h4{
         height: 60%;
         width:28%;
         border-radius: 15px;
-        margin: 5px 0 5px 10px;
+        margin: 5px;
     }
 
-    
     .right-side{
-        /* border: 1px solid rgb(0, 0, 0); */
         display: flex;
         width: 50%;
-        /* flex-direction: column; */
         flex-direction: row;
         justify-content: space-evenly;
         align-items: center;
@@ -186,6 +165,5 @@ h4{
         display: flex;
         justify-content: center;
         align-items: center;
-        /* text-align: center; */
     }
 }
