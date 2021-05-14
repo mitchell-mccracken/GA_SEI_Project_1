@@ -18,3 +18,7 @@ https://mitchell-mccracken.github.io/black_jack_game/
     * JavaScript
 
 ### Future Development:
+    * add more error handling for user bets to check for non-number values entered or add chip buttons for various betting amounts that the user would click on. 
+    * add modal to describe the interaction between the game and the user. 
+    * spend more time on CSS working to make the cards as large as they can be for all browser window sizes
+    * add functionality to reshuffle if dealer deck is low

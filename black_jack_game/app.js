@@ -92,13 +92,15 @@ class CardGeneration {
     }
 }
 
-// =========== generate deck of cards
-for (number of cardNumberArray) {
-    let num = number;
-    for (suit of cardSuitArray) {
-        let cardSuit = suit;
-        const card = new CardGeneration( num , cardSuit , 'nocolor');
-        deckOfCards.push(card);
+// =========== generate 4 decks of cards
+for (i=0 ; i<4 ; i++){
+    for (number of cardNumberArray) {
+        let num = number;
+        for (suit of cardSuitArray) {
+            let cardSuit = suit;
+            const card = new CardGeneration( num , cardSuit , 'nocolor');
+            deckOfCards.push(card);
+        }
     }
 }
 
@@ -212,7 +214,7 @@ const playerDecision = (decision) => {
 const dealerDecisionModel = () => {
     if (playerDecisionMade === 'made'){      
         if (playerPoints === dealerPoints) {
-            alert ('tie, no winners');
+            alert ('push, no winners');
             userChoice();
             return
         }
@@ -350,10 +352,4 @@ const generateCard = (cardID , card) => {
     divCard.setAttribute('class' , 'card');
     document.querySelector(cardID).appendChild(divCard);
 }
-
-
-
-
-
-
 
